@@ -1,52 +1,68 @@
 import React from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-// Types
+import { useQuery } from "react-query";
+import axios from "axios";
 import type { NextPage } from "next";
-// Layouts
-import PageLayout from "../../components/layouts/PageLayout";
-// Icons
-import { MdSearch } from "react-icons/md";
+// Components
+import AirPolutionInfo from "../../components/AirPolutionInfo";
+import CityInfo from "../../components/CityInfo";
+import ExtraInfo from "../../components/ExtraInfo";
+import Header from "../../components/Header";
+import TempInfo from "../../components/TempInfo";
+import TodayInfo from "../../components/TodayInfo";
 
 const City: NextPage = () => {
   const router = useRouter();
-  const cityRef = React.useRef<HTMLInputElement>(null);
+  const { query } = router;
 
-  const handleGetWeather = (ev: React.FormEvent) => {
-    ev.preventDefault();
-    router.push(`/${cityRef.current?.value}`);
-  };
+  const {
+    data: weatherData,
+    isLoading,
+    error,
+  } = useQuery(
+    ["weather", query.city],
+    () => {
+      return axios.get(`/api/weather?city=${query.city}`);
+    },
+    {
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      refetchOnMount: false,
+      retry: false,
+      enabled: !!query.city,
+    }
+  );
 
   return (
-    <PageLayout wrapperClassName="bg-gray-300">
+    <>
       <Head>
         <title>Weather App</title>
         <meta name="description" content="Weather app" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <div className="global-padding h-full flex flex-col ">
-        <form
-          onSubmit={handleGetWeather}
-          className="h-10 self-center flex items-stretch"
-        >
-          <input
-            className="border border-r-0"
-            placeholder="Enter a city"
-            ref={cityRef}
+      <div className="bg-gray-300 h-screen">
+        <main className="max-w-sm mx-auto bg-white h-full">
+          <Header />
+          <TempInfo
+            temp={weatherData?.data.main.temp}
+            description={weatherData?.data.weather[0].description}
+            icon={weatherData?.data.weather[0].icon}
           />
-          <button className="w-10 border p-1" type="submit">
-            <MdSearch className="mx-auto" />
-          </button>
-        </form>
-
-        <section className="my-4">
-          <header className="text-center text-xl font-semibold">
-            {router.query.city} Weather Info
-          </header>
-          <section></section>
-        </section>
+          <CityInfo
+            cityName={weatherData?.data.name}
+            countryCode={weatherData?.data.sys.country}
+          />
+          <ExtraInfo
+            humidity={weatherData?.data.main.humidity}
+            wind={weatherData?.data.wind}
+            uvi={weatherData?.data.uvi || 11}
+          />
+          <TodayInfo />
+          <AirPolutionInfo />
+        </main>
       </div>
-    </PageLayout>
+    </>
   );
 };
 

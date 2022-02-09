@@ -10,7 +10,7 @@ const TempInfo: React.FC<TempInfoProps> = ({ temp, description, icon }) => {
   return (
     <section className="my-3 h-20 px-6 flex items-center justify-between">
       <div className="flex items-center">
-        <span className="text-5xl">{`${temp.toFixed()}°`}</span>
+        <span className="text-5xl">{`${temp?.toFixed()}°`}</span>
         <span className="ml-2 border-l-2 border-black capitalize pl-1 text-sm ">
           {description}
         </span>
