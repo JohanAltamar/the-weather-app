@@ -48,15 +48,18 @@ const City: NextPage = () => {
             temp={weatherData?.data.main.temp}
             description={weatherData?.data.weather[0].description}
             icon={weatherData?.data.weather[0].icon}
+            isLoading={isLoading}
           />
           <CityInfo
             cityName={weatherData?.data.name}
             countryCode={weatherData?.data.sys.country}
+            isLoading={isLoading}
           />
           <ExtraInfo
             humidity={weatherData?.data.main.humidity}
             wind={weatherData?.data.wind}
             uvi={weatherData?.data.uvi || 11}
+            isLoading={isLoading}
           />
           <TodayInfo />
           <AirPolutionInfo />

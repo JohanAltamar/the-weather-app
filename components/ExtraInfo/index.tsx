@@ -23,20 +23,34 @@ interface ExtraInfoProps {
   humidity: number;
   uvi: number;
   wind: { speed: number; deg: number };
+  isLoading?: boolean;
 }
-const ExtraInfo: React.FC<ExtraInfoProps> = ({ humidity, uvi, wind }) => {
+const ExtraInfo: React.FC<ExtraInfoProps> = ({
+  humidity,
+  uvi,
+  wind,
+  isLoading,
+}) => {
+  const displayInfo = !isLoading && humidity && uvi && wind;
+
   return (
     <section className="h-20 relative px-6 flex justify-between items-start after:absolute after:w-4/5 after:h-4 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:shadow-xl">
       <div className="flex flex-col items-center justify-center w-1/3">
-        <span className="text-base font-semibold">{`${humidity}%`}</span>
+        <span className="text-base font-semibold">
+          {displayInfo ? `${humidity}%` : "XX"}
+        </span>
         <span className="text-xs">Humidity</span>
       </div>
       <div className="flex flex-col items-center justify-center w-1/3">
-        <span className="text-base font-semibold">{uvi}</span>
+        <span className="text-base font-semibold">
+          {displayInfo ? `${uvi}` : "XX"}
+        </span>
         <span className="text-xs">UV Index</span>
       </div>
       <div className="flex flex-col items-center justify-center w-1/3">
-        <span className="text-base font-semibold">{getWindInfo(wind)}</span>
+        <span className="text-base font-semibold">
+          {displayInfo ? getWindInfo(wind) : "X X kmh"}
+        </span>
         <span className="text-xs">Wind</span>
       </div>
     </section>
