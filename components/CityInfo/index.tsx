@@ -1,8 +1,8 @@
 import React from "react";
 
 interface CityInfoProps {
-  cityName: string;
-  countryCode: string;
+  cityName?: string;
+  countryCode?: string;
   isLoading?: boolean;
 }
 

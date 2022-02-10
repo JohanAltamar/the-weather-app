@@ -12,17 +12,17 @@ const getWindDirection = (deg: number) => {
   return directions[index];
 };
 
-const getWindInfo = (windInfo: { speed: number; deg: number }) => {
+const getWindInfo = (windInfo: { speed?: number; deg?: number }) => {
   // return "E 8 kmh";
-  if (!windInfo) return "";
+  if (windInfo.deg === undefined || windInfo.speed === undefined) return "";
   const { speed, deg } = windInfo;
   return `${getWindDirection(deg)} ${speedConverter(speed, "mps", "kmh")}`;
 };
 
 interface ExtraInfoProps {
-  humidity: number;
-  uvi: number;
-  wind: { speed: number; deg: number };
+  humidity?: number;
+  uvi?: number;
+  wind?: { speed?: number; deg?: number };
   isLoading?: boolean;
 }
 const ExtraInfo: React.FC<ExtraInfoProps> = ({
@@ -31,7 +31,11 @@ const ExtraInfo: React.FC<ExtraInfoProps> = ({
   wind,
   isLoading,
 }) => {
-  const displayInfo = !isLoading && humidity && uvi && wind;
+  const displayInfo =
+    !isLoading &&
+    humidity !== undefined &&
+    uvi !== undefined &&
+    wind !== undefined;
 
   return (
     <section className="h-20 relative px-6 flex justify-between items-start after:absolute after:w-4/5 after:h-4 after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:shadow-xl">

@@ -2,9 +2,9 @@ import React from "react";
 import Image from "next/image";
 
 interface TempInfoProps {
-  temp: number;
-  description: string;
-  icon: string;
+  temp?: number;
+  description?: string;
+  icon?: string;
   isLoading?: boolean;
 }
 const TempInfo: React.FC<TempInfoProps> = ({
