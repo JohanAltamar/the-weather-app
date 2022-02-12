@@ -71,6 +71,7 @@ const AirPolutionInfo: React.FC<Partial<AirPolutionInfoProps>> = ({
         <span className="absolute right-0 text-sm text-blue-600">Details</span>
       </header>
       <div className="mt-5 flex items-center">
+        {/* TODO: update air polution icon according AQI level */}
         <figure className="w-8 h-10 mr-4 flex">
           <Image
             width={100}

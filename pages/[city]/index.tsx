@@ -65,11 +65,7 @@ const City: NextPage = () => {
     }
   );
 
-  const {
-    data: weatherData,
-    isLoading,
-    error,
-  } = useQuery<WeatherResponse>(
+  const { data: weatherData, isLoading } = useQuery<WeatherResponse>(
     ["weather", query.city],
     async () => {
       const { data } = await axios.get(
@@ -78,19 +74,29 @@ const City: NextPage = () => {
       return data;
     },
     {
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      refetchOnMount: false,
-      retry: false,
-      enabled: !!cityInfo,
+      enabled: !!cityInfo?.lat && !!cityInfo?.lon,
     }
   );
 
-  const {
-    data: polutionData,
-    isLoading: polutionIsLoading,
-    error: polutionError,
-  } = useQuery<PolutionResponse>(
+  const { data: prevWeatherData } = useQuery<WeatherResponse>(
+    ["prevWeather", query.city],
+    async () => {
+      const { data } = await axios.get(
+        // `http://api.openweathermap.org/data/2.5/onecall/timemachine?dt=1644464521&lat=${cityInfo?.lat}&lon=${cityInfo?.lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${
+          cityInfo?.lat
+        }&lon=${cityInfo?.lon}&dt=${(
+          new Date().getTime() / 1000
+        ).toFixed()}&appid=d5288300908406b3dd1543153fed9b6a&units=metric`
+      );
+      return data;
+    },
+    {
+      enabled: !!cityInfo?.lat && !!cityInfo?.lon,
+    }
+  );
+
+  const { data: polutionData } = useQuery<PolutionResponse>(
     ["polution", query.city],
     async () => {
       const { data } = await axios.get(
@@ -103,22 +109,22 @@ const City: NextPage = () => {
       return data;
     },
     {
-      refetchOnWindowFocus: false,
-      refetchOnReconnect: false,
-      refetchOnMount: false,
-      retry: false,
       enabled: !!cityInfo?.lat && !!cityInfo?.lon,
     }
   );
-
-  console.log(weatherData);
-
+  // TODO: Add refetch icon
   return (
     <>
       <Head>
         <title>{cityInfo?.name} | Weather App</title>
-        <meta name="description" content="Weather app" />
-        <link rel="icon" href="/favicon.ico" />
+        <meta
+          name="description"
+          content={`Current weather in ${cityInfo?.name} city`}
+        />
+        <link
+          rel="icon"
+          href={`http://openweathermap.org/img/wn/${weatherData?.current.weather[0].icon}@2x.png`}
+        />
       </Head>
       <div className="bg-gray-300 h-screen">
         <main className="max-w-sm mx-auto bg-white h-full">
