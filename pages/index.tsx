@@ -23,7 +23,7 @@ const Home: NextPage = () => {
     "https://images.unsplash.com/photo-1559060017-445fb9722f2a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80";
 
   return (
-    <>
+    <PageLayout>
       <Head>
         <title>Weather App</title>
         <meta name="description" content="Weather app" />
@@ -58,7 +58,7 @@ const Home: NextPage = () => {
           </main>
         </div>
       </div>
-    </>
+    </PageLayout>
   );
 };
 

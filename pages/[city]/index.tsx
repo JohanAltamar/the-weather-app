@@ -13,6 +13,8 @@ import ExtraInfo from "../../components/ExtraInfo";
 import Header from "../../components/Header";
 import TempInfo from "../../components/TempInfo";
 import TodayInfo from "../../components/TodayInfo";
+// Templates
+import PageLayout from "../../components/layouts/PageLayout";
 
 interface CityInfo {
   name: string;
@@ -114,7 +116,7 @@ const City: NextPage = () => {
   );
   // TODO: Add refetch icon
   return (
-    <>
+    <PageLayout>
       <Head>
         <title>{cityInfo?.name} | Weather App</title>
         <meta
@@ -126,34 +128,30 @@ const City: NextPage = () => {
           href={`http://openweathermap.org/img/wn/${weatherData?.current.weather[0].icon}@2x.png`}
         />
       </Head>
-      <div className="bg-gray-300 h-screen">
-        <main className="max-w-sm mx-auto bg-white h-full">
-          <Header />
-          <TempInfo
-            temp={weatherData?.current.temp}
-            description={weatherData?.current.weather[0].description}
-            icon={weatherData?.current.weather[0].icon}
-            isLoading={isLoading}
-          />
-          <CityInfo
-            cityName={cityInfo?.name}
-            countryCode={cityInfo?.country}
-            isLoading={isLoading}
-          />
-          <ExtraInfo
-            humidity={weatherData?.current?.humidity}
-            wind={{
-              speed: weatherData?.current?.wind_speed,
-              deg: weatherData?.current.wind_deg,
-            }}
-            uvi={weatherData?.current.uvi}
-            isLoading={isLoading}
-          />
-          <TodayInfo />
-          <AirPolutionInfo pm2_5={polutionData?.list[0].components.pm2_5} />
-        </main>
-      </div>
-    </>
+      <Header />
+      <TempInfo
+        temp={weatherData?.current.temp}
+        description={weatherData?.current.weather[0].description}
+        icon={weatherData?.current.weather[0].icon}
+        isLoading={isLoading}
+      />
+      <CityInfo
+        cityName={cityInfo?.name}
+        countryCode={cityInfo?.country}
+        isLoading={isLoading}
+      />
+      <ExtraInfo
+        humidity={weatherData?.current?.humidity}
+        wind={{
+          speed: weatherData?.current?.wind_speed,
+          deg: weatherData?.current.wind_deg,
+        }}
+        uvi={weatherData?.current.uvi}
+        isLoading={isLoading}
+      />
+      <TodayInfo />
+      <AirPolutionInfo pm2_5={polutionData?.list[0].components.pm2_5} />
+    </PageLayout>
   );
 };
 

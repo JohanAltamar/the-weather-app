@@ -1,21 +1,11 @@
-import classNames from "classnames";
-
-import Header from "../navigation/Header";
-
 interface PageLayoutProps {
   className?: string;
-  wrapperClassName?: string;
 }
 
-const PageLayout: React.FC<PageLayoutProps> = ({
-  children,
-  className,
-  wrapperClassName,
-}) => {
+const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
-    <div className={classNames("h-screen flex flex-col", wrapperClassName)}>
-      <Header />
-      <main className={classNames("flex-1", className)}>{children}</main>
+    <div className="bg-gray-300 h-screen">
+      <main className="max-w-sm mx-auto bg-white h-full">{children}</main>
     </div>
   );
 };
