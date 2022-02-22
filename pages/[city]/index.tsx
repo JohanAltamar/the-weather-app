@@ -10,7 +10,6 @@ import AirPolutionInfo, {
 } from "../../components/AirPolutionInfo";
 import CityInfo from "../../components/CityInfo";
 import ExtraInfo from "../../components/ExtraInfo";
-import Header from "../../components/Header";
 import TempInfo from "../../components/TempInfo";
 import TodayInfo from "../../components/TodayInfo";
 // Templates
@@ -107,7 +106,7 @@ const City: NextPage = () => {
         />
         <link
           rel="icon"
-          href={`http://openweathermap.org/img/wn/${weatherData?.current.weather[0].icon}@2x.png`}
+          href={`http://openweathermap.org/img/wn/${weatherData?.current.weather[0].icon}@1x.png`}
         />
       </Head>
       <TempInfo
@@ -130,7 +129,10 @@ const City: NextPage = () => {
         uvi={weatherData?.current.uvi}
         isLoading={isLoading}
       />
-      <TodayInfo />
+      <TodayInfo
+        city={cityInfo?.name!}
+        forecast={weatherData?.hourly.slice(0, 4)}
+      />
       <AirPolutionInfo pm2_5={polutionData?.list[0].components.pm2_5} />
     </PageLayout>
   );

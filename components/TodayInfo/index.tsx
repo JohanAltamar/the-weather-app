@@ -1,46 +1,66 @@
 import React from "react";
+import Link from "next/link";
+import Image from "next/image";
 
-const TodayInfo = () => {
+interface WeatherInfo {
+  dt: number;
+  temp: number;
+  uvi: number;
+  humidity: number;
+  wind_speed: number;
+  wind_deg: number;
+  weather: {
+    id: number;
+    description: string;
+    icon: string;
+  }[];
+}
+
+interface TodayInfoProps {
+  city: string;
+  forecast?: WeatherInfo[];
+}
+
+const TodayInfo: React.FC<TodayInfoProps> = ({ city, forecast }) => {
+  const getHour = (date: number) => {
+    return new Date(date * 1000)
+      .toLocaleString("en-US", {
+        hour: "numeric",
+        hour12: true,
+      })
+      .toLowerCase();
+  };
+
   return (
     <div className="my-5 mb-8 px-6">
       <header className="relative">
         <span className="mr-5 text-base font-semibold">Today</span>
         <span className="text-sm text-gray-400">Tomorrow</span>
-        <span className="absolute right-0 text-sm text-blue-600">See All</span>
+        <Link href={`${city}/today`} passHref>
+          <button className="px-2 absolute right-0 text-sm text-blue-600 hover:cursor-pointer">
+            See All
+          </button>
+        </Link>
       </header>
       <div className="flex mt-6">
-        <div className="w-1/4 flex flex-col items-center">
-          <img
-            className="w-10 aspect-square mb-2"
-            src="/icons/morning_partial.svg"
-          />
-          <span className="text-xs font-semibold mb-1">30°</span>
-          <span className="text-xs">Morning</span>
-        </div>
-        <div className="w-1/4 flex flex-col items-center">
-          <img
-            className="w-10 aspect-square mb-2"
-            src="/icons/morning_partial.svg"
-          />
-          <span className="text-xs font-semibold mb-1">28°</span>
-          <span className="text-xs">Afternoon</span>
-        </div>
-        <div className="w-1/4 flex flex-col items-center">
-          <img
-            className="w-10 aspect-square mb-2"
-            src="/icons/evening_raining.svg"
-          />
-          <span className="text-xs font-semibold mb-1">26°</span>
-          <span className="text-xs">Evening</span>
-        </div>
-        <div className="w-1/4 flex flex-col items-center">
-          <img
-            className="w-10 aspect-square mb-2"
-            src="/icons/night_rain.svg"
-          />
-          <span className="text-xs font-semibold mb-1">25°</span>
-          <span className="text-xs">Night</span>
-        </div>
+        {forecast?.map((hour) => (
+          <div
+            key={hour.dt}
+            className="cursor-default w-1/4 flex flex-col items-center"
+          >
+            <span className="relative h-10 w-10 mb-2">
+              <Image
+                alt="weather"
+                layout="fill"
+                src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`}
+              />
+            </span>
+            <span className="text-xs font-semibold mb-1">
+              {hour.temp.toFixed()}°
+            </span>
+            <span className="text-xs">{getHour(hour.dt)}</span>
+          </div>
+        ))}
       </div>
     </div>
   );
