@@ -80,24 +80,6 @@ const City: NextPage = () => {
     }
   );
 
-  const { data: prevWeatherData } = useQuery<WeatherResponse>(
-    ["prevWeather", query.city],
-    async () => {
-      const { data } = await axios.get(
-        // `http://api.openweathermap.org/data/2.5/onecall/timemachine?dt=1644464521&lat=${cityInfo?.lat}&lon=${cityInfo?.lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&units=metric`
-        `https://api.openweathermap.org/data/2.5/onecall/timemachine?lat=${
-          cityInfo?.lat
-        }&lon=${cityInfo?.lon}&dt=${(
-          new Date().getTime() / 1000
-        ).toFixed()}&appid=d5288300908406b3dd1543153fed9b6a&units=metric`
-      );
-      return data;
-    },
-    {
-      enabled: !!cityInfo?.lat && !!cityInfo?.lon,
-    }
-  );
-
   const { data: polutionData } = useQuery<PolutionResponse>(
     ["polution", query.city],
     async () => {
@@ -128,7 +110,6 @@ const City: NextPage = () => {
           href={`http://openweathermap.org/img/wn/${weatherData?.current.weather[0].icon}@2x.png`}
         />
       </Head>
-      <Header />
       <TempInfo
         temp={weatherData?.current.temp}
         description={weatherData?.current.weather[0].description}

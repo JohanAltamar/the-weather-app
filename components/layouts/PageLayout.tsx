@@ -1,3 +1,5 @@
+import Header from "../Header";
+
 interface PageLayoutProps {
   className?: string;
 }
@@ -5,7 +7,10 @@ interface PageLayoutProps {
 const PageLayout: React.FC<PageLayoutProps> = ({ children }) => {
   return (
     <div className="bg-gray-300 h-screen">
-      <main className="max-w-sm mx-auto bg-white h-full">{children}</main>
+      <div className="max-w-sm mx-auto bg-white h-full flex flex-col">
+        <Header />
+        <main className="flex-1 overflow-auto scrollbar">{children}</main>
+      </div>
     </div>
   );
 };

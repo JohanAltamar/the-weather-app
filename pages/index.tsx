@@ -35,7 +35,6 @@ const Home: NextPage = () => {
             <Image alt="background" src={bgUrl} layout="fill" />
           </figure>
           <main className="backdrop-blur-sm h-full w-full flex flex-col text-white">
-            <Header />
             <h1 className="text-4xl text-center font-semibold my-20 mb-12">
               The Weather App
             </h1>
