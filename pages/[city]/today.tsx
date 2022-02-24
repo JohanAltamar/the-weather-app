@@ -99,8 +99,6 @@ const TodayPage = () => {
     }
   );
 
-  console.log(weatherData);
-
   const handleHourClick = (date: number) => () => {
     if (expandedHours.includes(date)) {
       setExpandedHours(expandedHours.filter((d) => d !== date));
