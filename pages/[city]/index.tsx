@@ -130,7 +130,7 @@ const City: NextPage = () => {
         isLoading={isLoading}
       />
       <TodayInfo
-        city={cityInfo?.name!}
+        city={query.city as string}
         forecast={weatherData?.hourly.slice(0, 4)}
       />
       <AirPolutionInfo pm2_5={polutionData?.list[0].components.pm2_5} />

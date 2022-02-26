@@ -35,12 +35,13 @@ const TodayInfo: React.FC<TodayInfoProps> = ({ city, forecast }) => {
     <div className="my-5 mb-8 px-6">
       <header className="relative">
         <span className="mr-5 text-base font-semibold">Today</span>
-        <span className="text-sm text-gray-400">Tomorrow</span>
-        <Link href={`${city}/today`} passHref>
-          <button className="px-2 absolute right-0 text-sm text-blue-600 hover:cursor-pointer">
-            See All
-          </button>
-        </Link>
+        {city && (
+          <Link href={`${city}/today`} passHref>
+            <button className="px-2 absolute right-0 text-sm text-blue-600 hover:cursor-pointer">
+              See All
+            </button>
+          </Link>
+        )}
       </header>
       <div className="flex mt-6">
         {forecast?.map((hour) => (
