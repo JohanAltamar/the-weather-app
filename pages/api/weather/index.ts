@@ -16,6 +16,8 @@ export default async function handler(
     );
     res.status(200).json(data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.message });
+    }
   }
 }
