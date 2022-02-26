@@ -16,6 +16,7 @@ const Header = ({ className }: { className?: string }) => {
   const [batteryCharging, setBatteryCharging] = React.useState(false);
 
   useEffect(() => {
+    const navigator: any = window.navigator;
     navigator
       .getBattery()
       .then(({ level, charging }: { level: number; charging: boolean }) => {
