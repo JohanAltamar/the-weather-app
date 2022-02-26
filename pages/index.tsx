@@ -9,6 +9,7 @@ import PageLayout from "../components/layouts/PageLayout";
 import { MdSearch } from "react-icons/md";
 import Header from "../components/Header";
 import Image from "next/image";
+import Link from "next/link";
 
 const Home: NextPage = () => {
   const router = useRouter();
@@ -54,6 +55,11 @@ const Home: NextPage = () => {
                 <MdSearch className="mx-auto" />
               </button>
             </form>
+            <Link href={"/acknowledgment"}>
+              <a className="text-center text-gray-200 mt-10">
+                <small>Thanks to ...</small>
+              </a>
+            </Link>
           </main>
         </div>
       </div>
