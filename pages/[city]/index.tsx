@@ -70,7 +70,7 @@ const City: NextPage = () => {
     ["weather", query.city],
     async () => {
       const { data } = await axios.get(
-        `http://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo?.lat}&lon=${cityInfo?.lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&units=metric`
+        `https://api.openweathermap.org/data/2.5/onecall?lat=${cityInfo?.lat}&lon=${cityInfo?.lon}&appid=${process.env.NEXT_PUBLIC_OPEN_WEATHER_API_KEY}&units=metric`
       );
       return data;
     },
