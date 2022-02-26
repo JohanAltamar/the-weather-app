@@ -53,7 +53,7 @@ const TodayInfo: React.FC<TodayInfoProps> = ({ city, forecast }) => {
               <Image
                 alt="weather"
                 layout="fill"
-                src={`http://openweathermap.org/img/wn/${hour.weather[0].icon}.png`}
+                src={`https://openweathermap.org/img/wn/${hour.weather[0].icon}.png`}
               />
             </span>
             <span className="text-xs font-semibold mb-1">

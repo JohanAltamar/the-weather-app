@@ -29,7 +29,7 @@ const TempInfo: React.FC<TempInfoProps> = ({
         width={80}
         height={80}
         alt="weather icon"
-        src={`http://openweathermap.org/img/wn/${icon}@2x.png`}
+        src={`https://openweathermap.org/img/wn/${icon}@2x.png`}
       />
     </section>
   );

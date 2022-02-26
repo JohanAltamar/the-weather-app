@@ -106,7 +106,7 @@ const City: NextPage = () => {
         />
         <link
           rel="icon"
-          href={`http://openweathermap.org/img/wn/${weatherData?.current.weather[0].icon}@1x.png`}
+          href={`https://openweathermap.org/img/wn/${weatherData?.current.weather[0].icon}@1x.png`}
         />
       </Head>
       <TempInfo
