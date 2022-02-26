@@ -7,12 +7,12 @@ export default async function handler(
   res: NextApiResponse<unknown>
 ) {
   try {
-    const { lat, lon, units = "metric" } = req.query;
-    if (!lat || !lon) {
-      throw new Error("City coordinates are required");
+    const { name } = req.query;
+    if (!name) {
+      throw new Error("City is required");
     }
     const { data } = await axios.get(
-      `${process.env.OPEN_WEATHER_MAP_ONE_CALL_API_URL}?lat=${lat}&lon=${lon}&units=${units}&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
+      `${process.env.OPEN_WEATHER_MAP_GEO_API_URL}?q=${name}&appid=${process.env.OPEN_WEATHER_MAP_API_KEY}`
     );
     res.status(200).json(data);
   } catch (error) {
